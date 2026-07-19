@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎀Miss Pookie🎀</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Nosifer&family=Orbitron:wght@400..900&family=Pixelify+Sans:wght@400..700&family=Racing+Sans+One&family=Rubik+Glitch&family=Rubik+Iso&family=Tektur:wght@400..900&family=Trade+Winds&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 97vh;
+            width: 98vw;
+            background-color: black;
+        }
+
+        body:hover {
+            cursor: grab;
+        }
+
+        .container {
+            position: relative;
+            padding: 0;
+            max-height: 95vh;
+            max-width: 97vw;
+            height: 95vh;
+            width: 97vw;
+            background-color: black;
+            border: 1px solid blue;
+            border-radius: 15px;
+            box-shadow: 0px 0px 25px blue;
+            overflow: hidden;
+        }
+
+        table {
+            position: absolute;
+            background-image: url("normal.png");
+            background-size: cover;
+            background-position: center;
+            border-spacing: 0px;
+            top: 42%;
+            left: 45%;
+            transition: .1s linear;
+            border-radius: 20px;
+            background-color: rgb(225, 103, 213);
+            border: 2px solid rgb(225, 103, 213);
+            box-shadow: 0px 0px 10px rgb(255, 0, 230);
+        }
+
+        td {
+            height: 25px;
+            width: 35px;
+        }
+
+        .msg {
+            text-align: center;
+            position: fixed;
+            bottom: 3%;
+            font-family: Pixelify Sans;
+            color: white;
+            font-size: 30px;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        @keyframes panic-shake {
+            0% {
+                transform: translate(2px, 2px)
+            }
+
+            25% {
+                transform: translate(-2px, -2px)
+            }
+
+            50% {
+                transform: translate(2px, -2px)
+            }
+
+            75% {
+                transform: translate(-2px, 2px)
+            }
+
+            100% {
+                transform: translate(2px, 2px)
+            }
+        }
+
+        .vibrate {
+            animation: panic-shake 0.1s infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <table border="0" id="table">
+            <tr>
+                <td id="top-left"></td>
+                <td colspan="2" id="top"></td>
+                <td id="top-right" style="text-align: end; font-size:20px;">🎀</td>
+            </tr>
+            <tr>
+                <td rowspan="2" id="left"></td>
+                <td rowspan="2"></td>
+                <td></td>
+                <td rowspan="2" id="right"></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td id="bottom-left"></td>
+                <td colspan="2" id="bottom"></td>
+                <td id="bottom-right"></td>
+            </tr>
+        </table>
+        <div class="msg">🎀Miss Pookie🎀:- <span id="mgs_add"></span></div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        let expressions = ["angry.png", "crying.png", "little-angry.png", "suspecious.png", "sad.png", "socked.png"];
+        let dailogues = ["Stay Away!!!", "Stay Away, u Bastard!!!", "Leave Me Alone!!!", "plz, Stay Away!!!", "Someone plz Help Me!!!", "Stay Away, you Idiot!!!", "Stay Away, Perv!!!"];
+        let table = $("#table");
+        let touch = 0;
+
+        $("td").mouseleave(function () {
+            table.removeClass("vibrate");
+        });
+
+        $("#top").mouseenter(function () {
+            touch++;
+            set_expression();
+            let maxTop = $(".container").height() - table.outerHeight();
+            let newTop = table.position().top + 50;
+
+            if (newTop >= maxTop) {
+                newTop = maxTop;
+                table.addClass("vibrate");
+                table.css("background-image", "url('shivering.png')");
+            }
+
+            table.stop().animate({ top: newTop + "px" });
+        });
+
+        $("#bottom").mouseenter(function () {
+            touch++;
+            set_expression();
+            let newTop = table.position().top - 50;
+
+            if (newTop <= 0) {
+                newTop = 0;
+                table.addClass("vibrate");
+                table.css("background-image", "url('shivering.png')");
+            }
+
+            table.stop().animate({ top: newTop + "px" });
+        });
+
+        $("#left").mouseenter(function () {
+            touch++;
+            set_expression();
+            let maxLeft = $(".container").width() - table.outerWidth();
+            let newLeft = table.position().left + 50;
+
+            if (newLeft >= maxLeft) {
+                newLeft = maxLeft;
+                table.addClass("vibrate");
+                table.css("background-image", "url('shivering.png')");
+            }
+
+            table.stop().animate({ left: newLeft + "px" });
+        });
+
+        $("#right").mouseenter(function () {
+            touch++;
+            set_expression();
+            let newLeft = table.position().left - 50;
+
+            if (newLeft <= 0) {
+                newLeft = 0;
+                table.addClass("vibrate");
+                table.css("background-image", "url('shivering.png')");
+            }
+
+            table.stop().animate({ left: newLeft + "px" });
+        });
+
+        $("#top-left").mouseenter(function () {
+            touch++;
+            set_expression();
+            let maxTop = $(".container").height() - table.outerHeight();
+            let maxLeft = $(".container").width() - table.outerWidth();
+            let newTop = table.position().top + 50;
+            let newLeft = table.position().left + 50;
+            let stuck = false;
+
+            if (newTop >= maxTop) { newTop = maxTop; stuck = true; }
+            if (newLeft >= maxLeft) { newLeft = maxLeft; stuck = true; }
+
+            if (stuck) {
+                table.addClass("vibrate");
+                table.css("background-image", "url('shivering.png')");
+            }
+
+            table.stop().animate({ top: newTop + "px", left: newLeft + "px" });
+        });
+
+        $("#top-right").mouseenter(function () {
+            touch++;
+            set_expression();
+            let maxTop = $(".container").height() - table.outerHeight();
+            let newTop = table.position().top + 50;
+            let newLeft = table.position().left - 50;
+            let stuck = false;
+
+            if (newTop >= maxTop) { newTop = maxTop; stuck = true; }
+            if (newLeft <= 0) { newLeft = 0; stuck = true; }
+
+            if (stuck) {
+                table.addClass("vibrate");
+                table.css("background-image", "url('shivering.png')");
+            }
+
+            table.stop().animate({ top: newTop + "px", left: newLeft + "px" });
+        });
+
+        $("#bottom-left").mouseenter(function () {
+            touch++;
+            set_expression();
+            let maxLeft = $(".container").width() - table.outerWidth();
+            let newTop = table.position().top - 50;
+            let newLeft = table.position().left + 50;
+            let stuck = false;
+
+            if (newTop <= 0) { newTop = 0; stuck = true; }
+            if (newLeft >= maxLeft) { newLeft = maxLeft; stuck = true; }
+
+            if (stuck) {
+                table.addClass("vibrate");
+                table.css("background-image", "url('shivering.png')");
+            }
+
+            table.stop().animate({ top: newTop + "px", left: newLeft + "px" });
+        });
+
+        $("#bottom-right").mouseenter(function () {
+            touch++;
+            set_expression();
+            let newTop = table.position().top - 50;
+            let newLeft = table.position().left - 50;
+            let stuck = false;
+
+            if (newTop <= 0) { newTop = 0; stuck = true; }
+            if (newLeft <= 0) { newLeft = 0; stuck = true; }
+
+            if (stuck) {
+                table.addClass("vibrate");
+                table.css("background-image", "url('shivering.png')");
+            }
+
+            table.stop().animate({ top: newTop + "px", left: newLeft + "px" });
+        });
+
+        function set_expression() {
+            if (touch == 1) {
+                $("#table").css("background-image", "url('bit-sus.png')");
+                $('#mgs_add').text("huh, Who are you!?");
+            }
+            else {
+                let selected = Math.round((Math.random() * (expressions.length - 1)));
+                let msg_selected = Math.round((Math.random() * (dailogues.length - 1)));
+                $("#table").css("background-image", "url('" + expressions[selected] + "')");
+                $('#mgs_add').text(dailogues[msg_selected]);
+            }
+        }
+    });
+</script>
+
+</html>
